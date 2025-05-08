@@ -128,21 +128,21 @@ You've successfully:
 
 ## 📁 Project Structure
 
-# ```
-# my-project/
-# ├── image/
-# │   ├── Dockerfile
-# │   ├── demo.yaml
-# │   └── tplserver.py
-# ├── chart/
-# │   ├── Chart.yaml
-# │   ├── values.yaml
-# │   └── templates/
-# │       ├── deployment.yaml
-# │       └── service.yaml
-# ├── RemoteSpec_demoJob.json
-# └── README.md
-# ```
+```
+my-project/
+├── image/
+│   ├── Dockerfile
+│   ├── demo.yaml
+│   └── tplserver.py
+├── chart/
+│   ├── Chart.yaml
+│   ├── values.yaml
+│   └── templates/
+│       ├── deployment.yaml
+│       └── service.yaml
+├── RemoteSpec_demoJob.json
+└── README.md
+```
 
 ---
 
