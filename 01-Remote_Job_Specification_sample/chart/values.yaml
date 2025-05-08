@@ -1,0 +1,24 @@
+# Number of replicas (default no HA since not intended for production)
+replicas: 1
+image:
+  # image.repo defines the path to the container image repository, in the following format: <registry hostname>/<account name>/<repository name> (optional)
+  # If you do not specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+  # On Openshift: image-registry.openshift-image-registry.svc:5000/<namespace>/agentk8s-tools
+  # Kubernetes Resource: statefulset.spec.template.spec.containers.image
+  repo:
+  # image.tag defines the tag associated with the image. Tags allow you to identify different versions of the same series of images. (optional)
+  # Kubernetes Resource: statefulset.spec.template.spec.containers.image
+  tag: latest
+  # image.pullPolicy determines whether to update the image (by pulling a new version of the image) when the kubelet launches a container. (optional)
+  # Kubernetes Resource: statefulset.spec.template.spec.containers.imagePullPolicy
+  pullPolicy: IfNotPresent
+  # image.pullSecrets defines a secret (password) for accessing a private registry.
+  # Kubernetes Resource: statefulset.spec.template.spec.imagePullSecrets
+  pullSecrets: [ ]
+
+pod:
+  # pod.nodeSelector defines node labels for the NodeSelector, so that the pod can be scheduled on the nodes. (optional)
+  # Kubernetes resource: statefulset.spec.template.spec.nodeSelector
+  nodeSelector:
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64

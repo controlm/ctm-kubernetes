@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}"
+  labels:
+    type: "{{ .Release.Name }}-templates"
+spec:
+  replicas: {{ .Values.replicas }} # number of running agents
+  selector:
+    matchLabels:
+      type: "{{ .Release.Name }}-templates"
+  template:
+    metadata:
+      labels:
+        type: "{{ .Release.Name }}-templates"
+        deployment: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: "{{ .Release.Name }}-server"
+          {{- if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints" }}
+          image: {{ template "template-server.openshift-repo" . }}
+          {{- else }}
+          image: {{ .Values.image.repo | default "agentk8s-tools" }}:{{ .Values.image.tag | default "tpl-server" }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 8080
+          {{- with .Values.pod.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      os:
+        name: linux
+      securityContext:
+        {{- if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints" }}
+        runAsNonRoot: true
+        {{- end }}
+        seccompProfile:
+          type: RuntimeDefault
