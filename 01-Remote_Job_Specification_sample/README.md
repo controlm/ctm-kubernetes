@@ -1,6 +1,11 @@
 # Tutorial: Deploying a containerized Remote Spec Service for the Control-M Kubernetes Agent
 
-This tutorial demonstrates how to build an OCI image for a simple template server, deploy it using Helm, and use it for Control-M Kubernetes Jobs.
+This tutorial demonstrates how to build an OCI image for a simple template server, deploy it using Helm, and use it for Control-M Kubernetes Jobs of type "Remote web service".
+
+When the Control-M Job is executed, the Control-M agent will request a Job specification from the server by specifying a template and parameters. The server will render the template using those parameters, and return a complete and usable Kubernetes Job specification.
+
+
+*OCI (Open Container Initiative) is the de facto standard for container image formats and runtimes to ensure interoperability and consistency across container tools. This tutorial uses docker for building the image, but any OCI-compliant tool can be used instead.*
 
 
 ## 📦 Overview
