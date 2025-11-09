@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "demo-job-{{job_yaml_file_params:jobid}}"
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: demo-job
+        image: perl
+        command: ["perl",  "-E", 'STDOUT->autoflush(1); $str = "The quick brown fox jumps over the lazy dog   -50-"; for ($i = 1; $i <= {{job_yaml_file_params:iterations}}; $i++) { printf "%04d $str \n", $i; sleep({{job_yaml_file_params:delay}}) }']
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          allowPrivilegeEscalation: false
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+  backoffLimit: 4
+
