@@ -51,7 +51,7 @@ docker pull <my-repo>/tpl-server:latest
 ```
 
 5. Download the sample files of the remote job specification:
-https://github.com/controlm/ctm-kubernetes/tree/remote-spec/01-Remote_Job_Specification_sample
+[01-Remote_Job_Specification_sample](01-Remote_Job_Specification_sample)
 
 6. Customize the `chart/values.yaml` file. Under the `image:` element, provide your repository name:
 ```yaml
