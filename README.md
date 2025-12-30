@@ -11,7 +11,7 @@ In this tutorial, you run a Control-M Kubernetes-type job. When the job is execu
 
 The following diagram illustrates the deployment flow:
 
-![diagram](image.png)
+![diagram](diagram_flow.png)
 
 In this diagram, you can see the following main deployment flow components:
 - Build Machine: Builds and pushes the Docker image
