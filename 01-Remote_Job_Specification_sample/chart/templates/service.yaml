@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-svc
+  labels:
+    type: "{{ .Release.Name }}-templates"
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 80-tcp
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    deployment: {{ .Release.Name }}
