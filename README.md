@@ -2,8 +2,6 @@
 
 The Control-M for Kubernetes plug-in enables you to do the following:
 
-## Capabilities
-
 - **Run one or more pods to completion in a Kubernetes cluster.**  
   This enables you to integrate Control-M capabilities, such as advanced scheduling criteria, status monitoring, and SLA management.  
   Kubernetes job specs for this purpose can be retrieved from a remote location during job execution using a REST request or can be uploaded during job definition as local YAML files. In addition, you can provide job specs as templates with placeholders for job spec parameters.
