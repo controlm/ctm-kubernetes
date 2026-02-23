@@ -1,6 +1,0 @@
-apiVersion: v2
-name: template-server
-description: A Helm chart for serving Jinja templates
-type: application
-version: 1.0.0
-appVersion: 1.0.0

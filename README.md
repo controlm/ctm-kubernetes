@@ -1,97 +1,24 @@
+Control-M for Kubernetes Overview
 
-Deploying a Containerized Remote Spec Service for a Control-M Kubernetes Agent
-===========================================================================
+The Control-M for Kubernetes plug-in enables you to do the following:
+# Run one or more pods to completion in a Kubernetes cluster. This enables you to integrate Control-M capabilities, such as advanced scheduling criteria, status monitoring, and SLA management.
+  Kubernetes job specs for this purpose can be retrieved from a remote location during job execution using a REST request or can be uploaded during job definition as local YAML files. In addition, you can provide job specs as templates with placeholders for job spec parameters.
+# Run OS jobs on remote UNIX-based hosts that are outside the Kubernetes cluster in an agentless manner. To run these OS jobs, the Agents in Kubernetes connect to multiple hosts outside the cluster using the SSH protocol.
+# Use Control-M Managed File Transfer (MFT) to do the following:
+ - Pull files from a central storage (such as S3) into a persistent volume in the Kubernetes cluster and then process them by running application pods.
+ - Transfer files generated in the persistent volume during application processing to a central storage outside the cluster.
+# Use the containerized Agents that run in Kubernetes to run additional jobs that consume remote services from outside of the Kubernetes cluster. This enables you to run the Agents on an optimized and highly scalable platform while executing a variety of workloads in a secure and fully automated manner.
 
-## Introduction
-This tutorial demonstrates how to build an OCI image for a simple template server, deploy it using Helm, and use it for Control-M Kubernetes jobs of type Remote web service.
 
-OCI (Open Container Initiative) is the standard for container image formats and runtimes to ensure interoperability and consistency across container tools. This tutorial uses Docker for building the image, but any OCI-compliant tool can be used instead.
+## Repository Structure
 
-In this tutorial, you run a Control-M Kubernetes-type job. When the job is executed, the Control-M/Agent requests a Job specification from the server by specifying a template and parameters. The server generates the template using those parameters and returns a complete and usable Kubernetes Job specification.
+The **main branch** contains general information, overview material, and shared resources related to the Control-M for Kubernetes plug-in.
 
-The following diagram illustrates the deployment flow:
+Dedicated **sub-branches** provide hands-on examples and implementation scenarios. Each branch focuses on a specific capability or integration pattern and includes step-by-step guidance and sample configurations.
 
-![diagram](diagram_flow.png)
+### Available Examples
 
-In this diagram, you can see the following main deployment flow components:
-- Build Machine: Builds and pushes the Docker image
-- Container Registry: Stores the tpl-server image
-- Kubernetes Cluster: Runs a Helm Chart, which deploys a Template Server Pod and generates the /jobspec service
-- Control-M Agent: Runs the RemoteSpec job
+- `remote-spec`  
+  Demonstrates how to deploy a containerized Remote Specification service that dynamically generates Kubernetes Job specifications for Control-M jobs at runtime.
 
-## 🔧 Prerequisites
-Before you begin, ensure you have the following tools installed and configured:
-- Docker: https://docs.docker.com/get-docker/
-- Kubernetes (with kubectl): https://kubernetes.io/docs/tasks/tools/
-- Helm: https://helm.sh/docs/intro/install/
-- Access to a Control-M environment, including an agent deployed in the Kubernetes cluster
-
-## 🚀 Begin
-1. Build the OCI image by running the following command:
-```bash
-docker build -t tpl-server:latest image
-```
-This packages your template server into a portable container image that can run anywhere.
-
-2. Ensure that you now have the image by running:
-```bash
-docker images | grep tpl-server
-```
-
-3. Publish the image:
-```bash
-docker tag tpl-server:latest <my-repo>/tpl-server:latest
-docker push <my-repo>/tpl-server:latest
-```
-This enables Kubernetes to pull the image from a registry accessible to the cluster.
-
-4. Ensure that the image is published by running:
-```bash
-docker pull <my-repo>/tpl-server:latest
-```
-
-5. Download the sample files of the remote job specification:
-[01-Remote_Job_Specification_sample](01-Remote_Job_Specification_sample)
-
-6. Customize the `chart/values.yaml` file. Under the `image:` element, provide your repository name:
-```yaml
-repos: <my-repo>
-```
-
-7. In Kubernetes, create a pod using Helm:
-```bash
-helm install my-template-server ./chart
-```
-
-8. Check pod status:
-```bash
-kubectl get pods
-kubectl describe pod <pod-name>
-```
-
-9. In Control-M, create a Kubernetes-type centralized connection profile:
-- Name: K8STPLSVC
-- Namespace: your namespace
-- Spec Endpoint URL: `http://my-template-server-svc/jobspec`
-
-10. Customize the `RemoteSpec_demoJob.json` file with your environment details. Update `ControlmServer`.
-
-11. Run the Kubernetes job via Automation API:
-```bash
-ctm run RemoteSpec_demoJob.json
-```
-
-## What Happens When the Control-M Job Runs
-During execution of the Control‑M RemoteSpec job, Control‑M sends a request to the Template Server (the provided Flask app running `tplserver.py`). The Template Server loads the requested template file (e.g., `demo.yaml`) and injects into it the values provided in the job’s Spec Request Parameters.
-
-Using Flask’s `render_template()`, the server generates a rendered Kubernetes Job spec (YAML), with all placeholders replaced by the passed parameter values.
-
-## 🛠️ Troubleshooting
-Common issues and fixes:
-- **ImagePullBackOff**: Verify the image name and tag, and ensure the registry is reachable and authenticated.
-- **Helm install fails**: Ensure `values.yaml` contains the correct repo and tag.
-
-To check pod logs:
-```bash
-kubectl logs <pod-name>
-```
+Additional example branches may be added over time to showcase more advanced use cases and best practices.
