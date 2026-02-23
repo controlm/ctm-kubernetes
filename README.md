@@ -2,18 +2,18 @@
 
 The Control-M for Kubernetes plug-in enables you to do the following:
 
-- **Run one or more pods to completion in a Kubernetes cluster.**  
+- **Run one or more pods to completion in a Kubernetes cluster**  
   This enables you to integrate Control-M capabilities, such as advanced scheduling criteria, status monitoring, and SLA management.  
   Kubernetes job specs for this purpose can be retrieved from a remote location during job execution using a REST request or can be uploaded during job definition as local YAML files. In addition, you can provide job specs as templates with placeholders for job spec parameters.
 
-- **Run OS jobs on remote UNIX-based hosts outside the Kubernetes cluster in an agentless manner.**  
+- **Run OS jobs on remote UNIX-based hosts outside the Kubernetes cluster in an agentless manner**  
   To run these OS jobs, the Agents in Kubernetes connect to multiple hosts outside the cluster using the SSH protocol.
 
 - **Use Control-M Managed File Transfer (MFT) to:**
   - Pull files from central storage (such as S3) into a persistent volume in the Kubernetes cluster and process them by running application pods.
   - Transfer files generated in the persistent volume during application processing to central storage outside the cluster.
 
-- **Use containerized Agents running in Kubernetes to consume remote services.**  
+- **Use containerized Agents running in Kubernetes to consume remote services**  
   This enables you to run the Agents on an optimized and highly scalable platform while executing a variety of workloads in a secure and fully automated manner.
 
 ---
