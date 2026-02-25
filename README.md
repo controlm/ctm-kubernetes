@@ -29,8 +29,7 @@ Each example focuses on a specific capability or integration pattern and include
 
 ## Available Examples
 
-- **remote-spec**  
-  [01-Remote_Job_Specification_sample](./01-Remote_Job_Specification_sample)  
+- [01-Remote_Job_Specification_sample](./01-Remote_Job_Specification_sample)  
   Demonstrates how to deploy a containerized Remote Specification service that dynamically generates Kubernetes Job specifications for Control-M jobs at runtime.
 
 Additional examples may be added over time to showcase more advanced use cases and best practices.
