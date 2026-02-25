@@ -50,8 +50,7 @@ This enables Kubernetes to pull the image from a registry accessible to the clus
 docker pull <my-repo>/tpl-server:latest
 ```
 
-5. Download the sample files of the remote job specification:
-[01-Remote_Job_Specification_sample](01-Remote_Job_Specification_sample)
+5. Download the sample files located in this folder.
 
 6. Customize the `chart/values.yaml` file. Under the `image:` element, provide your repository name:
 ```yaml
