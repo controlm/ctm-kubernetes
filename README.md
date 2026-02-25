@@ -22,8 +22,8 @@ The Control-M for Kubernetes plug-in enables you to do the following:
 
 The **main branch** contains general information, overview material, and shared resources related to the Control-M for Kubernetes plug-in.
 
-The `examples` folder includes hands-on examples and implementation scenarios.  
-Each example focuses on a specific capability or integration pattern and includes step-by-step guidance and sample configurations.
+Each example is provided as a dedicated folder in the repository root.  
+Every example focuses on a specific capability or integration pattern and includes step-by-step guidance and sample configurations.
 
 ---
 
