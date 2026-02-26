@@ -33,3 +33,10 @@ Every example focuses on a specific capability or integration pattern and includ
   Demonstrates how to deploy a containerized Remote Specification service that dynamically generates Kubernetes Job specifications for Control-M jobs at runtime.
 
 Additional examples may be added over time to showcase more advanced use cases and best practices.
+
+---
+
+## Support
+
+Found a bug? Looking for a new feature? Check if we already have an open issue in the [GitHub Issues page](https://github.com/controlm/ctm-kubernetes/issues).  
+If not, feel free to create a new one. Together with the community, we will review, prioritize, and address relevant feedback and enhancement requests.
